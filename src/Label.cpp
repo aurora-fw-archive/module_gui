@@ -15,6 +15,7 @@
 ** ensure the GNU Lesser General Public License version 3 requirements
 ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
 ****************************************************************************/
+
 #include <gtk/gtk.h>
 
 #include <AuroraFW/GUI/Label.h>
