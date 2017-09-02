@@ -16,20 +16,25 @@
 ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
 ****************************************************************************/
 
-#include <AuroraFW/GUI/Button.h>
+#ifndef AURORAFW_GUI_BUTTON_H
+#define AURORAFW_GUI_BUTTON_H
 
-#include <gtk/gtk.h>
+#include <AuroraFW/GUI/Window.h>
+
+typedef struct _GtkWidget GtkWidget;
 
 namespace AuroraFW {
 	namespace GUI {
-		Button::Button(Window* &parent, std::string name) {
-			button = gtk_button_new_with_label(name.c_str());
-			WindowParent = parent->window;
-			gtk_container_add(GTK_CONTAINER(WindowParent), button);
-		}
+		class AFW_PREFIX Button {
+		public:
+			Button(Window*& , std::string );
+			~Button();
 
-		Button::~Button() {
-			delete button;
-		}
+		private:
+			GtkWidget *WindowParent;
+			GtkWidget *button;
+		};
 	}
 }
+
+#endif // AURORAFW_GUI_BUTTON_H

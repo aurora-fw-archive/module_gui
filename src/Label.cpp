@@ -1,73 +1,88 @@
-// ┌─┐┬ ┬┬─┐┌─┐┬─┐┌─┐  ┌─┐┬─┐┌─┐┌┬┐┌─┐┬ ┬┌─┐┬─┐┬┌─ | Powerful, Scalable and Cross Platform Framework
-// ├─┤│ │├┬┘│ │├┬┘├─┤  ├┤ ├┬┘├─┤│││├┤ ││││ │├┬┘├┴┐ | @author Luís Ferreira
-// ┴ ┴└─┘┴└─└─┘┴└─┴ ┴  └  ┴└─┴ ┴┴ ┴└─┘└┴┘└─┘┴└─┴ ┴ | @license GNU Public License v3
-//  Copyright (c) 2016 - Luís Ferreira. All right reserved
-//  More information in: https://github.com/ljmf00/ (Github Page)
-
+/****************************************************************************
+** ┌─┐┬ ┬┬─┐┌─┐┬─┐┌─┐  ┌─┐┬─┐┌─┐┌┬┐┌─┐┬ ┬┌─┐┬─┐┬┌─
+** ├─┤│ │├┬┘│ │├┬┘├─┤  ├┤ ├┬┘├─┤│││├┤ ││││ │├┬┘├┴┐
+** ┴ ┴└─┘┴└─└─┘┴└─┴ ┴  └  ┴└─┴ ┴┴ ┴└─┘└┴┘└─┘┴└─┴ ┴
+** A Powerful General Purpose Framework
+** More information in: https://aurora-fw.github.io/
+**
+** Copyright (C) 2017 Aurora Framework, All rights reserved.
+**
+** This file is part of the Aurora Framework. This framework is free
+** software; you can redistribute it and/or modify it under the terms of
+** the GNU Lesser General Public License version 3 as published by the
+** Free Software Foundation and appearing in the file LICENSE included in
+** the packaging of this file. Please review the following information to
+** ensure the GNU Lesser General Public License version 3 requirements
+** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
+****************************************************************************/
 #include <gtk/gtk.h>
 
-#include <Aurora/GUI/Label.h>
-#include <Aurora/GUI/Window.h>
-#include <Aurora/CLI/Log.h>
-#include <Aurora/Core/Debug.h>
+#include <AuroraFW/GUI/Label.h>
+#include <AuroraFW/GUI/Window.h>
+#include <AuroraFW/CLI/Log.h>
+#include <AuroraFW/Core/Debug.h>
 
-namespace Aurora
+namespace AuroraFW
 {
 	namespace GUI {
 		Label::Label(Window* &parent, std::string name)
+			: WindowParent(parent->window), label(gtk_label_new (name.c_str()))
 		{
-			ID = (unsigned)(long) Aurora::Debug::LastID;
-			Aurora::Debug::LastID++;
-			Shell::Log(Shell::Debug, "creating new label: id_", ID, " on window id_", parent->ID);
-			label = gtk_label_new (name.c_str());
-			WindowParent = parent->window;
+			CLI::Log(CLI::Debug, "creating new label");
 			gtk_container_add(GTK_CONTAINER(WindowParent), label);
-			Shell::Log(Shell::Debug, "label id_", ID, " is created on window id_", parent->ID);
+			CLI::Log(CLI::Debug, "label is created");
 		}
+
+		Label::Label(const Label& lbl)
+			: WindowParent(lbl.WindowParent), label(lbl.label)
+		{}
 
 		Label::~Label() {
 			delete label;
+			label = nullptr;
+			delete WindowParent;
+			WindowParent = nullptr;
 		}
 
 		//Settings
 		void Label::setText(std::string text)
 		{
-			Shell::Log(Shell::Debug, "setting text on label id_", ID);
+			CLI::Log(CLI::Debug, "setting text on label");
 			gtk_label_set_text((GtkLabel*)label, text.c_str());
 		}
-		std::string Label::getText()
+		std::string Label::getText() const
 		{
-			Shell::Log(Shell::Debug, "getting text from label id_", ID);
+			CLI::Log(CLI::Debug, "getting text from label");
 			return std::string(gtk_label_get_text ((GtkLabel*)label));
 		}
 		void Label::setSelectable(bool value)
 		{
-			Shell::Log(Shell::Debug, "setting selectable property on label id_", ID);
+			CLI::Log(CLI::Debug, "setting selectable property on label");
 			gtk_label_set_selectable((GtkLabel*)label, value);
 		}
-		bool Label::isSelectable()
+		bool Label::isSelectable() const
 		{
-			Shell::Log(Shell::Debug, "getting selectable property from label id_", ID);
+			CLI::Log(CLI::Debug, "getting selectable property from label");
 			return gtk_label_get_selectable((GtkLabel*)label);
 		}
 		void Label::setWrap(bool value)
 		{
-			Shell::Log(Shell::Debug, "setting wrap property on label id_", ID);
+			CLI::Log(CLI::Debug, "setting wrap property on label");
 			gtk_label_set_line_wrap((GtkLabel*)label, value);
 		}
-		bool Label::isWrap()
+		bool Label::isWrap() const
 		{
-			Shell::Log(Shell::Debug, "getting wrap property from label id_", ID);
+			CLI::Log(CLI::Debug, "getting wrap property from label");
 			return gtk_label_get_line_wrap((GtkLabel*)label);
 		}
 		void Label::setWrapMode(WrapMode mode)
 		{
-			Shell::Log(Shell::Debug, "setting wrap mode property on label id_", ID);
+			CLI::Log(CLI::Debug, "setting wrap mode property on label");
 			gtk_label_set_line_wrap_mode((GtkLabel*)label, (PangoWrapMode)mode);
 		}
-		WrapMode Label::getWrapMode()
+		WrapMode Label::getWrapMode() const
 		{
-			Shell::Log(Shell::Debug, "getting wrap mode property from label id_", ID);
+			CLI::Log(CLI::Debug, "getting wrap mode property from label");
 			return (WrapMode)gtk_label_get_line_wrap_mode((GtkLabel*)label);
 		}
 		void Label::setAlignment(AlignMode mode)
@@ -76,47 +91,47 @@ namespace Aurora
 			switch(mode)
 			{
 				case AlignMode::TopLeft :
-					Shell::Log(Shell::Debug, "setting alignment mode to 'TopLeft' property from label id_", ID);
+					CLI::Log(CLI::Debug, "setting alignment mode to 'TopLeft' property from label");
 					gtk_label_set_xalign((GtkLabel*)label, 0);
 					gtk_label_set_yalign((GtkLabel*)label, 0);
 					break;
 				case AlignMode::TopCenter :
-					Shell::Log(Shell::Debug, "setting alignment mode to 'TopCenter' property from label id_", ID);
+					CLI::Log(CLI::Debug, "setting alignment mode to 'TopCenter' property from label");
 					gtk_label_set_xalign((GtkLabel*)label, 0.5);
 					gtk_label_set_yalign((GtkLabel*)label, 0);
 					break;
 				case AlignMode::TopRight :
-					Shell::Log(Shell::Debug, "setting alignment mode to 'TopRight' property from label id_", ID);
+					CLI::Log(CLI::Debug, "setting alignment mode to 'TopRight' property from label");
 					gtk_label_set_xalign((GtkLabel*)label, 1);
 					gtk_label_set_yalign((GtkLabel*)label, 0);
 					break;
 				case AlignMode::Left :
-					Shell::Log(Shell::Debug, "setting alignment mode to 'Left' property from label id_", ID);
+					CLI::Log(CLI::Debug, "setting alignment mode to 'Left' property from label");
 					gtk_label_set_xalign((GtkLabel*)label, 0);
 					gtk_label_set_yalign((GtkLabel*)label, 0.5);
 					break;
 				case AlignMode::Center :
-					Shell::Log(Shell::Debug, "setting alignment mode to 'Center' property from label id_", ID);
+					CLI::Log(CLI::Debug, "setting alignment mode to 'Center' property from label");
 					gtk_label_set_xalign((GtkLabel*)label, 0.5);
 					gtk_label_set_yalign((GtkLabel*)label, 0.5);
 					break;
 				case AlignMode::Right :
-					Shell::Log(Shell::Debug, "setting alignment mode to 'Right' property from label id_", ID);
+					CLI::Log(CLI::Debug, "setting alignment mode to 'Right' property from label");
 					gtk_label_set_xalign((GtkLabel*)label, 1);
 					gtk_label_set_yalign((GtkLabel*)label, 0.5);
 					break;
 				case AlignMode::BottomLeft :
-					Shell::Log(Shell::Debug, "setting alignment mode to 'BottomLeft' property from label id_", ID);
+					CLI::Log(CLI::Debug, "setting alignment mode to 'BottomLeft' property from label");
 					gtk_label_set_xalign((GtkLabel*)label, 0);
 					gtk_label_set_yalign((GtkLabel*)label, 1);
 					break;
 				case AlignMode::BottomCenter :
-					Shell::Log(Shell::Debug, "setting alignment mode to 'BottomCenter' property from label id_", ID);
+					CLI::Log(CLI::Debug, "setting alignment mode to 'BottomCenter' property from label");
 					gtk_label_set_xalign((GtkLabel*)label, 0.5);
 					gtk_label_set_yalign((GtkLabel*)label, 1);
 					break;
 				case AlignMode::BottomRight :
-					Shell::Log(Shell::Debug, "setting alignment mode to 'BottomRight' property from label id_", ID);
+					CLI::Log(CLI::Debug, "setting alignment mode to 'BottomRight' property from label");
 					gtk_label_set_xalign((GtkLabel*)label, 1);
 					gtk_label_set_yalign((GtkLabel*)label, 1);
 					break;
@@ -132,47 +147,54 @@ namespace Aurora
 		// x value for horizontal	| x >>
 		// y value for vertical		| y \/
 		{
-			Shell::Log(Shell::Debug, "setting alignment mode to ", x, "(x value) and ", y, "(y value) ", "property from label id_", ID);
+			CLI::Log(CLI::Debug, "setting alignment mode to ", x, "(x value) and ", y, "(y value) ", "property from label");
 			gtk_label_set_xalign((GtkLabel*)label, x);
 			gtk_label_set_yalign((GtkLabel*)label, y);
 		}
 
-		AlignMode Label::getAlignment()
+		AlignMode Label::getAlignment() const
 		{
 			const float x = gtk_label_get_xalign((GtkLabel*)label);
 			const float y = gtk_label_get_yalign((GtkLabel*)label);
-			Shell::Log(Shell::Debug, "getting alignment mode property from label id_", ID, ": ", x, "(x value) and ", y, "(y value)");
-			if(y == 0)
+			CLI::Log(CLI::Debug, "getting alignment mode property from label: ", x, "(x value) and ", y, "(y value)");
+			if(y == 0.0f)
 			{
-				if(x == 0) return AlignMode::TopLeft;
-				else if(x == 0.5) return AlignMode::TopCenter;
-				else if(x == 1) return AlignMode::TopRight;
+				if(x == 0.0f) return AlignMode::TopLeft;
+				else if(x == 0.5f) return AlignMode::TopCenter;
+				else if(x == 1.0f) return AlignMode::TopRight;
 			}
-			else if (y == 0.5)
+			else if (y == 0.5f)
 			{
-				if(x == 0) return AlignMode::Left;
-				else if(x == 0.5) return AlignMode::Center;
-				else if(x == 1) return AlignMode::Right;
+				if(x == 0.0f) return AlignMode::Left;
+				else if(x == 0.5f) return AlignMode::Center;
+				else if(x == 1.0f) return AlignMode::Right;
 			}
-			else if (y == 1)
+			else if (y == 1.0f)
 			{
-				if(x == 0) return AlignMode::BottomLeft;
-				else if(x == 0.5) return AlignMode::BottomCenter;
-				else if(x == 1) return AlignMode::BottomRight;
+				if(x == 0.0f) return AlignMode::BottomLeft;
+				else if(x == 0.5f) return AlignMode::BottomCenter;
+				else if(x == 1.0f) return AlignMode::BottomRight;
 			}
 			return AlignMode::Custom;
 		}
 
-		float Label::getXAlignment()
+		float Label::getXAlignment() const
 		{
-			Shell::Log(Shell::Debug, "getting alignment mode property from label id_", ID, ": ", gtk_label_get_xalign((GtkLabel*)label), "(x value)");
+			CLI::Log(CLI::Debug, "getting alignment mode property from label: ", gtk_label_get_xalign((GtkLabel*)label), "(x value)");
 			return gtk_label_get_xalign((GtkLabel*)label);
 		}
 
-		float Label::getYAlignment()
+		float Label::getYAlignment() const
 		{
-			Shell::Log(Shell::Debug, "getting alignment mode property from label id_", ID, ": ", gtk_label_get_yalign((GtkLabel*)label), "(y value)");
+			CLI::Log(CLI::Debug, "getting alignment mode property from label: ", gtk_label_get_yalign((GtkLabel*)label), "(y value)");
 			return gtk_label_get_yalign((GtkLabel*)label);
+		}
+
+		Label& Label::operator=(const Label& lbl)
+		{
+			this->label = lbl.label;
+			this->WindowParent = lbl.WindowParent;
+			return *this;
 		}
 	}
 }

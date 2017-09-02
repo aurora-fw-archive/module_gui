@@ -16,20 +16,42 @@
 ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
 ****************************************************************************/
 
-#include <AuroraFW/GUI/Button.h>
+#ifndef AURORAFW_GUI_APPLICATION_H
+#define AURORAFW_GUI_APPLICATION_H
 
-#include <gtk/gtk.h>
+#include <AuroraFW/Global.h>
 
-namespace AuroraFW {
-	namespace GUI {
-		Button::Button(Window* &parent, std::string name) {
-			button = gtk_button_new_with_label(name.c_str());
-			WindowParent = parent->window;
-			gtk_container_add(GTK_CONTAINER(WindowParent), button);
-		}
+#include <AuroraFW/Core/Application.h>
 
-		Button::~Button() {
-			delete button;
-		}
-	}
+#include <AuroraFW/GUI/_GtkApplication.h>
+
+namespace AuroraFW
+{
+    namespace GUI {
+        class AFW_PREFIX Application
+        {
+        public:
+            enum ApplicationFlags
+            {
+                NoneFlag,
+                ServiceFlag,
+                LauncherFlag,
+                HandlesOpenFlag,
+                HandlesCommandLineFlag,
+                SendEnvironmentFlag,
+                NonUniqueFlag,
+                OverrideAppIDFlag
+            };
+            Application(std::string pkgname = "org.aurora.example", ApplicationFlags flags = NoneFlag, void (*mainfunction)() = []{}, int argc = 0, char *argv[] = NULL);
+            ~Application();
+            void connect(std::string detailedSignal, void (*signalFunction)(), void *signalData = NULL);
+            int AppStatus;
+
+        private:
+            GtkApplication *App;
+            AuroraFW::Application *ProcessApp;
+        };
+    }
 }
+
+#endif // AURORAFW_GUI_APPLICATION

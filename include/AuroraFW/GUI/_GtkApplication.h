@@ -16,20 +16,9 @@
 ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
 ****************************************************************************/
 
-#include <AuroraFW/GUI/Button.h>
+#ifndef AURORAFW_GUI__GTKAPPLICATION_H
+#define AURORAFW_GUI__GTKAPPLICATION_H
 
-#include <gtk/gtk.h>
+typedef struct _GtkApplication GtkApplication;
 
-namespace AuroraFW {
-	namespace GUI {
-		Button::Button(Window* &parent, std::string name) {
-			button = gtk_button_new_with_label(name.c_str());
-			WindowParent = parent->window;
-			gtk_container_add(GTK_CONTAINER(WindowParent), button);
-		}
-
-		Button::~Button() {
-			delete button;
-		}
-	}
-}
+#endif // AURORAFW_GUI__GTKAPPLICATION_H
