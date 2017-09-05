@@ -30,6 +30,9 @@ namespace AuroraFW {
 			Button(Window*& , std::string );
 			~Button();
 
+			Button (const Button& x) = delete;
+			Button& operator= (const Button& x) = delete;
+
 		private:
 			GtkWidget *WindowParent;
 			GtkWidget *button;

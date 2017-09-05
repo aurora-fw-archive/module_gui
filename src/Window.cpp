@@ -25,9 +25,9 @@ namespace AuroraFW
 {
 	namespace GUI {
 		Window::Window(std::string name, int width, int height, WindowPosition pos, WindowType type)
+			:	window(gtk_window_new((GtkWindowType)type))
 		{
 			CLI::Log(CLI::Debug, "creating new window");
-			window = gtk_window_new((GtkWindowType)type);
 			setTitle(name);
 			setPos(pos);
 			gtk_window_set_default_size(GTK_WINDOW(window), width, height);

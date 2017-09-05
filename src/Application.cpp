@@ -28,13 +28,13 @@ namespace AuroraFW
 {
 	namespace GUI {
 		Application::Application(std::string pkgname, ApplicationFlags flags, void (*mainfunction)(), int argc, char *argv[])
+			:	AppStatus(g_application_run (G_APPLICATION (App), 0, NULL)),
+				App(gtk_application_new (pkgname.c_str(), (GApplicationFlags)flags)),
+				ProcessApp(new AuroraFW::Application(mainfunction, argc, argv))
 		{
-			ProcessApp = new AuroraFW::Application(mainfunction, argc, argv);
 			CLI::Log(CLI::Debug, "creating a new application...");
-			App = gtk_application_new (pkgname.c_str(), (GApplicationFlags)flags);
 			CLI::Log(CLI::Debug, "application is created.");
 			connect("activate", mainfunction);
-			AppStatus = g_application_run (G_APPLICATION (App), 0, NULL);
 			g_object_unref(App);
 		}
 		Application::~Application() {

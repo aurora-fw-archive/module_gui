@@ -44,9 +44,12 @@ namespace AuroraFW
             };
             Application(std::string pkgname = "org.aurora.example", ApplicationFlags flags = NoneFlag, void (*mainfunction)() = []{}, int argc = 0, char *argv[] = NULL);
             ~Application();
+
+            Application (const Application& x) = delete;
+            Application& operator= (const Application& x) = delete;
+
             void connect(std::string detailedSignal, void (*signalFunction)(), void *signalData = NULL);
             int AppStatus;
-
         private:
             GtkApplication *App;
             AuroraFW::Application *ProcessApp;
