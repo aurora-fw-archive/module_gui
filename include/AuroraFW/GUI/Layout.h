@@ -19,8 +19,7 @@
 #ifndef AURORAFW_GUI_LAYOUT_H
 #define AURORAFW_GUI_LAYOUT_H
 
-namespace AuroraFW
-{
+namespace AuroraFW {
 	namespace GUI {
         enum class WrapMode
     	{

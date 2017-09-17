@@ -56,13 +56,11 @@
 
 typedef struct _GtkWidget GtkWidget;
 
-namespace AuroraFW
-{
+namespace AuroraFW {
 	namespace GUI {
-        class AFW_PREFIX Label
-    	{
+        class AFW_PREFIX Label {
     	public:
-    		Label(Window*& , std::string name = "New Label");
+    		Label(Window*& , const std::string& name = "New Label");
             Label(const Label&);
             ~Label();
 
@@ -88,8 +86,8 @@ namespace AuroraFW
     		//Signals
 
     	private:
-            GtkWidget *WindowParent;
-    		GtkWidget *label;
+            GtkWidget *_windowParent;
+    		GtkWidget *_label;
     	};
     }
 }

@@ -27,15 +27,15 @@ namespace AuroraFW {
 	namespace GUI {
 		class AFW_PREFIX Button {
 		public:
-			Button(Window*& , std::string );
+			Button(Window*& , const std::string& );
 			~Button();
 
 			Button (const Button& x) = delete;
 			Button& operator= (const Button& x) = delete;
 
 		private:
-			GtkWidget *WindowParent;
-			GtkWidget *button;
+			GtkWidget *_windowParent;
+			GtkWidget *_button;
 		};
 	}
 }

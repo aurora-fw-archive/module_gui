@@ -26,13 +26,12 @@
 
 typedef struct _GtkWidget GtkWidget;
 
-namespace AuroraFW
-{
+namespace AuroraFW {
 	namespace GUI {
-        class Window
-    	{
-    	friend class Label;
-        friend class Button;
+        class Window {
+    		friend class Label;
+			friend class Button;
+			
     	public:
 
     		// Window Types
@@ -52,15 +51,15 @@ namespace AuroraFW
     			CenterParentPosition
     		};
 
-    		Window(std::string = "Aurora Window", int = 200, int = 200, WindowPosition = NonePosition, WindowType = ToplevelWindow);
-    		void setTitle(std::string );
-    		void setPos(WindowPosition );
-    		void connect(std::string , void (*)(), void* = NULL);
+    		Window(const std::string& = "Aurora Window", const int& = 200, const int& = 200, const WindowPosition& = NonePosition, const WindowType& = ToplevelWindow);
+    		void setTitle(const std::string& );
+    		void setPos(const WindowPosition& );
+    		void connect(const std::string& , void (*)(), void* = NULL);
     		void show(void);
     		void start(void (*)() = []{});
 
     	protected:
-    		GtkWidget *window;
+    		GtkWidget *_window;
     	};
     }
 }

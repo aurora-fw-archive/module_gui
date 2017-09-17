@@ -24,13 +24,13 @@
 namespace AuroraFW
 {
 	namespace GUI {
-		Window::Window(std::string name, int width, int height, WindowPosition pos, WindowType type)
-			:	window(gtk_window_new((GtkWindowType)type))
+		Window::Window(const std::string& name, const int& width, const int& height, const WindowPosition& pos, const WindowType& type)
+			:	_window(gtk_window_new((GtkWindowType)type))
 		{
 			CLI::Log(CLI::Debug, "creating new window");
 			setTitle(name);
 			setPos(pos);
-			gtk_window_set_default_size(GTK_WINDOW(window), width, height);
+			gtk_window_set_default_size(GTK_WINDOW(_window), width, height);
 			connect("destroy", []{
 				gtk_main_quit();
 				CLI::Log(CLI::Debug, "window is destroyed.");
@@ -38,27 +38,27 @@ namespace AuroraFW
 			CLI::Log(CLI::Debug, "window is created.");
 		}
 
-		void Window::setTitle(std::string title)
+		void Window::setTitle(const std::string& title)
 		{
 			CLI::Log(CLI::Debug, "setting title on window");
-			gtk_window_set_title(GTK_WINDOW(window), title.c_str());
+			gtk_window_set_title(GTK_WINDOW(_window), title.c_str());
 		}
 
-		void Window::setPos(WindowPosition pos)
+		void Window::setPos(const WindowPosition& pos)
 		{
 			CLI::Log(CLI::Debug, "setting window position on window");
-			gtk_window_set_position (GTK_WINDOW(window), (GtkWindowPosition) pos);
+			gtk_window_set_position (GTK_WINDOW(_window), (GtkWindowPosition) pos);
 		}
 
-		void Window::connect(std::string detailedSignal, void (*signalFunction)(), void* signalData)
+		void Window::connect(const std::string& detailedSignal, void (*signalFunction)(), void* signalData)
 		{
 			CLI::Log(CLI::Debug, "creating new signal on window");
-			g_signal_connect(window, detailedSignal.c_str(), G_CALLBACK(signalFunction), signalData);
+			g_signal_connect(_window, detailedSignal.c_str(), G_CALLBACK(signalFunction), signalData);
 		}
 
 		void Window::start(void (*startFunction)())
 		{
-			gtk_widget_show_all(window);
+			gtk_widget_show_all(_window);
 			CLI::Log(CLI::Debug, "showing widgets on window");
 			(*startFunction)();
 			CLI::Log(CLI::Debug, "starting main loop on window");

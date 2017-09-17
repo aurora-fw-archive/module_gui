@@ -24,30 +24,29 @@
 #include <AuroraFW/Core/Debug.h>
 #include <AuroraFW/CLI/Log.h>
 
-namespace AuroraFW
-{
+namespace AuroraFW {
 	namespace GUI {
-		Application::Application(std::string pkgname, ApplicationFlags flags, void (*mainfunction)(), int argc, char *argv[])
-			:	AppStatus(g_application_run (G_APPLICATION (App), 0, NULL)),
-				App(gtk_application_new (pkgname.c_str(), (GApplicationFlags)flags)),
-				ProcessApp(new AuroraFW::Application(mainfunction, argc, argv))
+		Application::Application(const std::string& pkgname, const ApplicationFlags& flags, void (*mainfunction)(), int argc, char *argv[])
+			:	appStatus(g_application_run (G_APPLICATION (_app), 0, NULL)),
+				_app(gtk_application_new (pkgname.c_str(), (GApplicationFlags)flags)),
+				_processApp(new AuroraFW::Application(mainfunction, argc, argv))
 		{
 			CLI::Log(CLI::Debug, "creating a new application...");
 			CLI::Log(CLI::Debug, "application is created.");
 			connect("activate", mainfunction);
-			g_object_unref(App);
+			g_object_unref(_app);
 		}
 		Application::~Application() {
-			delete App;
-			App = nullptr;
-			delete ProcessApp;
-			ProcessApp = nullptr;
+			delete _app;
+			_app = nullptr;
+			delete _processApp;
+			_processApp = nullptr;
 		}
 
-		void Application::connect(std::string detailedSignal, void (*signalFunction)(), void *signalData)
+		void Application::connect(const std::string& detailedSignal, void (*signalFunction)(), void *signalData)
 		{
 			CLI::Log(CLI::Debug, "creating new signal on application");
-			g_signal_connect (App, detailedSignal.c_str(), G_CALLBACK(signalFunction), signalData);
+			g_signal_connect (_app, detailedSignal.c_str(), G_CALLBACK(signalFunction), signalData);
 		}
 	}
 }

@@ -22,15 +22,16 @@
 
 namespace AuroraFW {
 	namespace GUI {
-		Button::Button(Window* &parent, std::string name)
-			:	WindowParent(parent->window),
-				button(gtk_button_new_with_label(name.c_str()))
+		Button::Button(Window* &parent, const std::string& name)
+			:	_windowParent(parent->_window),
+				_button(gtk_button_new_with_label(name.c_str()))
 		{
-			gtk_container_add(GTK_CONTAINER(WindowParent), button);
+			gtk_container_add(GTK_CONTAINER(_windowParent), _button);
 		}
 
-		Button::~Button() {
-			delete button;
+		Button::~Button()
+		{
+			delete _button;
 		}
 	}
 }
