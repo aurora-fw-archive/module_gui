@@ -26,33 +26,33 @@
 #include <AuroraFW/GUI/_GtkApplication.h>
 
 namespace AuroraFW {
-    namespace GUI {
-        class AFW_PREFIX Application {
-        public:
-            enum ApplicationFlags
-            {
-                NoneFlag,
-                ServiceFlag,
-                LauncherFlag,
-                HandlesOpenFlag,
-                HandlesCommandLineFlag,
-                SendEnvironmentFlag,
-                NonUniqueFlag,
-                OverrideAppIDFlag
-            };
-            Application(const std::string& pkgname = "org.aurora.example", const ApplicationFlags& flags = NoneFlag, void (*mainfunction)() = []{}, int argc = 0, char *argv[] = NULL);
-            ~Application();
+	namespace GUI {
+		class AFW_EXPORT Application {
+		public:
+			enum ApplicationFlags
+			{
+				NoneFlag,
+				ServiceFlag,
+				LauncherFlag,
+				HandlesOpenFlag,
+				HandlesCommandLineFlag,
+				SendEnvironmentFlag,
+				NonUniqueFlag,
+				OverrideAppIDFlag
+			};
+			Application(const std::string& pkgname = "org.aurora.example", const ApplicationFlags& flags = NoneFlag, void (*mainfunction)() = []{}, int argc = 0, char *argv[] = NULL);
+			~Application();
 
-            Application (const Application& x) = delete;
-            Application& operator= (const Application& x) = delete;
+			Application (const Application& x) = delete;
+			Application& operator= (const Application& x) = delete;
 
-            void connect(const std::string& detailedSignal, void (*signalFunction)(), void *signalData = NULL);
-            int appStatus;
-        private:
-            GtkApplication *_app;
-            AuroraFW::Application *_processApp;
-        };
-    }
+			void connect(const std::string& detailedSignal, void (*signalFunction)(), void *signalData = NULL);
+			int appStatus;
+		private:
+			GtkApplication *_app;
+			AuroraFW::Application *_processApp;
+		};
+	}
 }
 
 #endif // AURORAFW_GUI_APPLICATION

@@ -16,7 +16,7 @@
 ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
 ****************************************************************************/
 
-#include <AuroraFW/TLib/_IOStream.h>
+#include <AuroraFW/STDL/STL/IOStream.h>
 
 #include <gtk/gtk.h>
 #include <AuroraFW/GUI/Application.h>

@@ -28,7 +28,7 @@ typedef struct _GtkWidget GtkWidget;
 
 namespace AuroraFW {
 	namespace GUI {
-        class Window {
+        class AFW_EXPORT Window {
     		friend class Label;
 			friend class Button;
 			

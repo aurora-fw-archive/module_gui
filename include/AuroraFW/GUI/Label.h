@@ -21,7 +21,7 @@
 
 #include <AuroraFW/GUI/Window.h>
 #include <AuroraFW/GUI/Layout.h>
-#include <AuroraFW/TLib/Target.h>
+#include <AuroraFW/STDL/Target.h>
 
 #ifdef AFW_TARGET_CXX
 	#include <cassert>
@@ -58,7 +58,7 @@ typedef struct _GtkWidget GtkWidget;
 
 namespace AuroraFW {
 	namespace GUI {
-        class AFW_PREFIX Label {
+        class AFW_EXPORT Label {
     	public:
     		Label(Window*& , const std::string& name = "New Label");
             Label(const Label&);

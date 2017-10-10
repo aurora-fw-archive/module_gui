@@ -18,6 +18,19 @@ message(STATUS "Loading gui module...")
 
 find_package(PkgConfig REQUIRED)
 
+if(NOT PKG_CONFIG_FOUND)
+    ExternalProject_Add(googletest
+    GIT_REPOSITORY    https://github.com/aurora-fw/external_pkg-config.git
+    GIT_TAG           pkg-config-0.29
+    SOURCE_DIR        "${CMAKE_BINARY_DIR}/googletest-src"
+    BINARY_DIR        "${CMAKE_BINARY_DIR}/googletest-build"
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND     ""
+    INSTALL_COMMAND   ""
+    TEST_COMMAND      ""
+    )
+endif()
+
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
 if (NOT CONFIGURED_ONCE)

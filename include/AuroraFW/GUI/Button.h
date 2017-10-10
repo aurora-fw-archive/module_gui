@@ -25,7 +25,7 @@ typedef struct _GtkWidget GtkWidget;
 
 namespace AuroraFW {
 	namespace GUI {
-		class AFW_PREFIX Button {
+		class AFW_EXPORT Button {
 		public:
 			Button(Window*& , const std::string& );
 			~Button();
