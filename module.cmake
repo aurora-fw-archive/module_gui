@@ -19,16 +19,16 @@ message(STATUS "Loading gui module...")
 find_package(PkgConfig REQUIRED)
 
 if(NOT PKG_CONFIG_FOUND)
-    ExternalProject_Add(googletest
-    GIT_REPOSITORY    https://github.com/aurora-fw/external_pkg-config.git
-    GIT_TAG           pkg-config-0.29
-    SOURCE_DIR        "${CMAKE_BINARY_DIR}/googletest-src"
-    BINARY_DIR        "${CMAKE_BINARY_DIR}/googletest-build"
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND     ""
-    INSTALL_COMMAND   ""
-    TEST_COMMAND      ""
-    )
+	ExternalProject_Add(googletest
+	GIT_REPOSITORY    https://github.com/aurora-fw/external_pkg-config.git
+	GIT_TAG           pkg-config-0.29
+	SOURCE_DIR        "${CMAKE_BINARY_DIR}/googletest-src"
+	BINARY_DIR        "${CMAKE_BINARY_DIR}/googletest-build"
+	CONFIGURE_COMMAND ""
+	BUILD_COMMAND     ""
+	INSTALL_COMMAND   ""
+	TEST_COMMAND      ""
+	)
 endif()
 
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
@@ -44,12 +44,12 @@ link_directories(${GTK3_LIBRARY_DIRS})
 add_definitions(${GTK3_CFLAGS_OTHER})
 
 add_library (aurorafw-gui SHARED ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Application.cpp
-                                 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Button.cpp
-                                 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Label.cpp
-                                 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Style.cpp
-                                 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Window.cpp)
+								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Button.cpp
+								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Label.cpp
+								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Style.cpp
+								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Window.cpp)
 
-target_link_libraries(aurorafw-gui ${GTK3_LIBRARIES})
+target_link_libraries(aurorafw-gui aurorafw-core ${GTK3_LIBRARIES})
 
 set_target_properties(aurorafw-gui PROPERTIES OUTPUT_NAME aurorafw-gui
-                                            COMPILE_FLAGS "`pkg-config --cflags --libs gtk+-3.0`")
+											COMPILE_FLAGS "`pkg-config --cflags --libs gtk+-3.0`")
