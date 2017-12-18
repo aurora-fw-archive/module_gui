@@ -27,7 +27,8 @@
 
 namespace AuroraFW {
 	namespace GUI {
-		class AFW_EXPORT Application {
+		class AFW_EXPORT Application
+		{
 		public:
 			enum ApplicationFlags
 			{
@@ -40,17 +41,18 @@ namespace AuroraFW {
 				NonUniqueFlag,
 				OverrideAppIDFlag
 			};
-			Application(const std::string& pkgname = "org.aurora.example", const ApplicationFlags& flags = NoneFlag, void (*mainfunction)() = []{}, int argc = 0, char *argv[] = NULL);
+
+			Application(const std::string &pkgname = "org.aurora.example", const ApplicationFlags &flags = NoneFlag, void (*mainfunction)() = [] {}, int argc = 0, char *argv[] = NULL);
 			~Application();
 
-			Application (const Application& x) = delete;
-			Application& operator= (const Application& x) = delete;
+			Application(const Application &x) = delete;
+			Application &operator=(const Application &x) = delete;
+			inline int getStatus() const { return _appStatus; }
+			void connect(const std::string &detailedSignal, void (*signalFunction)(), void *signalData = NULL);
 
-			void connect(const std::string& detailedSignal, void (*signalFunction)(), void *signalData = NULL);
-			int appStatus;
 		private:
 			GtkApplication *_app;
-			AuroraFW::Application *_processApp;
+			int _appStatus;
 		};
 	}
 }

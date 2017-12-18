@@ -27,25 +27,22 @@
 namespace AuroraFW {
 	namespace GUI {
 		Application::Application(const std::string& pkgname, const ApplicationFlags& flags, void (*mainfunction)(), int argc, char *argv[])
-			:	appStatus(g_application_run (G_APPLICATION (_app), 0, NULL)),
-				_app(gtk_application_new (pkgname.c_str(), (GApplicationFlags)flags)),
-				_processApp(new AuroraFW::Application(mainfunction, argc, argv))
+			: _app(gtk_application_new (pkgname.c_str(), (GApplicationFlags)flags))
 		{
-			CLI::Log(CLI::Debug, "creating a new application...");
-			CLI::Log(CLI::Debug, "application is created.");
+			Debug::Log("creating a new application...");
+			Debug::Log("application is created.");
 			connect("activate", mainfunction);
+			_appStatus = g_application_run(G_APPLICATION(_app), argc, argv);
 			g_object_unref(_app);
 		}
 		Application::~Application() {
 			delete _app;
 			_app = nullptr;
-			delete _processApp;
-			_processApp = nullptr;
 		}
 
 		void Application::connect(const std::string& detailedSignal, void (*signalFunction)(), void *signalData)
 		{
-			CLI::Log(CLI::Debug, "creating new signal on application");
+			Debug::Log("creating new signal on application");
 			g_signal_connect (_app, detailedSignal.c_str(), G_CALLBACK(signalFunction), signalData);
 		}
 	}

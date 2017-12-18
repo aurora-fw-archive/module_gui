@@ -1,0 +1,153 @@
+@startuml
+skinparam roundcorner 20
+skinparam arrowcolor black
+skinparam noteBackgroundColor PaleGoldenRod
+
+skinparam class {
+	backgroundColor LightGray
+	borderColor Black
+}
+
+!definelong exception(name, type = "T")
+class name <<(E,firebrick) exception>> #FCC {
+	+ name(const type)
+	..
+	+ {abstract} const type what() const throw()
+	--
+	- const type
+}
+!enddefinelong
+
+title Graphical User Interface Structure (GTK Wrapper)
+
+
+enum ApplicationFlags {
+	NoneFlag
+	ServiceFlag
+	LauncherFlag
+	HandlesOpenFlag
+	HandlesCommandLineFlag
+	SendEnvironmentFlag
+	NonUniqueFlag
+	OverrideAppIDFlag
+}
+
+enum WrapMode {
+	Word
+	Char
+	WordChar
+}
+
+enum AlignMode {
+	TopLeft
+	TopCenter
+	TopRight
+	Left
+	Center
+	Right
+	BottomLeft
+	BottomCenter
+	BottomRight
+	Custom
+}
+
+enum JustifyMode {
+	Left
+	Right
+	Center
+	Fill
+}
+
+class Application {
+	+ Application()
+	+ ~Application()
+	.. Public ..
+	+ connect()
+	+ AppStatus : Integer
+	-- Protected --
+	# App* : Application
+	# ID : uLong
+}
+note left: GTKApplication
+
+class Label {
+	+ Label()
+	.. Public ..
+	+ Some Setters
+	+ Some Getters
+	-- Protected --
+	# Label* : Label
+	# ID :uLong
+	__ Private __
+	- WindowParent* : Window
+}
+note left: GTKLabel
+
+class Button {
+	+ Button()
+}
+note left: GTKButton
+
+class ListView {
+
+}
+note left: GTKListBox
+
+class TabControl {
+
+}
+note left: GTKNotebook
+
+class ProgressBar {
+
+}
+note left: GTKProgressBar
+
+class PaneControl {
+
+}
+note left: GTKPaned
+
+class ActionBar {
+
+}
+note left: GTKActionBar
+
+class TreeView {
+
+}
+note left: GTKTreeView
+
+enum WindowType {
+	ToplevelWindow
+	PopupWindow
+}
+enum WindowPosition {
+	NonePosition
+	CenterPosition
+	MousePosition
+	AlwaysCenterPosition
+	CenterParentPosition
+}
+
+class Window {
+	+ Window()
+	.. Public ..
+	+ setTitle(string)
+	+ setPos(WindowPosition)
+	+ connect(string, function, data)
+	+ start()
+	-- Protected --
+	# Window : Window
+}
+note left: GTKWindow
+
+WrapMode <|.. Label
+AlignMode <|.. Label
+JustifyMode <|.. Label
+ApplicationFlags o-- Application
+WindowType o-- Window
+WindowPosition o-- Window
+Label *-- Window
+
+@enduml
