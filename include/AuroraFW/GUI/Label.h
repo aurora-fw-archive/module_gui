@@ -21,7 +21,7 @@
 
 #include <AuroraFW/GUI/Window.h>
 #include <AuroraFW/GUI/Layout.h>
-#include <AuroraFW/STDL/Target.h>
+#include <AuroraFW/CoreLib/Target/Compiler.h>
 
 #ifdef AFW_TARGET_CXX
 	#include <cassert>
