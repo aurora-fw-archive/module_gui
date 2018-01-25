@@ -15,15 +15,16 @@
 # will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
 
 
-*.c         text eol=lf
-*.h         text eol=lf
+*.c			text eol=lf
+*.cpp		text eol=lf
+*.h			text eol=lf
 *.txt		text
 *.sh		text eol=lf
 *.jpg		-text
 
 # Set the default behavior, in case people don't have core.autocrlf set.
-*           text=auto
+*			text=auto
 
 # Declare files that will always have CRLF line endings on checkout.
 *.vcproj	text eol=crlf
-*.sln       text eol=crlf
+*.sln		text eol=crlf
