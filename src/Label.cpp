@@ -21,7 +21,7 @@
 #include <AuroraFW/GUI/Label.h>
 #include <AuroraFW/GUI/Window.h>
 #include <AuroraFW/CLI/Log.h>
-#include <AuroraFW/Core/Debug.h>
+#include <AuroraFW/Core/DebugManager.h>
 
 namespace AuroraFW
 {
