@@ -21,7 +21,7 @@
 #include <gtk/gtk.h>
 #include <AuroraFW/GUI/Application.h>
 #include <AuroraFW/Core/Application.h>
-#include <AuroraFW/Core/Debug.h>
+#include <AuroraFW/Core/DebugManager.h>
 #include <AuroraFW/CLI/Log.h>
 
 namespace AuroraFW {
