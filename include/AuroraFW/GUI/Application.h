@@ -20,6 +20,11 @@
 #define AURORAFW_GUI_APPLICATION_H
 
 #include <AuroraFW/Global.h>
+#if(AFW_TARGET_PRAGMA_ONCE_SUPPORT)
+	#pragma once
+#endif
+
+#include <AuroraFW/Internal/Config.h>
 
 #include <AuroraFW/Core/Application.h>
 
@@ -27,7 +32,7 @@
 
 namespace AuroraFW {
 	namespace GUI {
-		class AFW_EXPORT Application
+		class AFW_API Application
 		{
 		public:
 			enum ApplicationFlags

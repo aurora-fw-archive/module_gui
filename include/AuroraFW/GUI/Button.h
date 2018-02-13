@@ -19,13 +19,20 @@
 #ifndef AURORAFW_GUI_BUTTON_H
 #define AURORAFW_GUI_BUTTON_H
 
+#include <AuroraFW/Global.h>
+#if(AFW_TARGET_PRAGMA_ONCE_SUPPORT)
+	#pragma once
+#endif
+
+#include <AuroraFW/Internal/Config.h>
+
 #include <AuroraFW/GUI/Window.h>
 
 typedef struct _GtkWidget GtkWidget;
 
 namespace AuroraFW {
 	namespace GUI {
-		class AFW_EXPORT Button {
+		class AFW_API Button {
 		public:
 			Button(Window*& , const std::string& );
 			~Button();

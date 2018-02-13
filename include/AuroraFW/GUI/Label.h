@@ -19,6 +19,13 @@
 #ifndef AURORAFW_GUI_LABEL_H
 #define AURORAFW_GUI_LABEL_H
 
+#include <AuroraFW/Global.h>
+#if(AFW_TARGET_PRAGMA_ONCE_SUPPORT)
+	#pragma once
+#endif
+
+#include <AuroraFW/Internal/Config.h>
+
 #include <AuroraFW/GUI/Window.h>
 #include <AuroraFW/GUI/Layout.h>
 #include <AuroraFW/CoreLib/Target/Compiler.h>
@@ -58,38 +65,38 @@ typedef struct _GtkWidget GtkWidget;
 
 namespace AuroraFW {
 	namespace GUI {
-        class AFW_EXPORT Label {
-    	public:
-    		Label(Window*& , const std::string& name = "New Label");
-            Label(const Label&);
-            ~Label();
+		class AFW_API Label {
+		public:
+			Label(Window*& , const std::string& name = "New Label");
+			Label(const Label&);
+			~Label();
 
-    		//Setters
-    		void setText(std::string);
-    		void setSelectable(bool);
-    		void setWrap(bool);
-    		void setWrapMode(WrapMode);
-    		void setAlignment(AlignMode);
-    		void setAlignment(const float, const float);
+			//Setters
+			void setText(std::string);
+			void setSelectable(bool);
+			void setWrap(bool);
+			void setWrapMode(WrapMode);
+			void setAlignment(AlignMode);
+			void setAlignment(const float, const float);
 
-    		//Getters
-    		std::string getText() const;
-    		bool isSelectable() const;
-    		bool isWrap() const;
-    		WrapMode getWrapMode() const;
-    		AlignMode getAlignment() const;
-    		float getXAlignment() const;
-    		float getYAlignment() const;
+			//Getters
+			std::string getText() const;
+			bool isSelectable() const;
+			bool isWrap() const;
+			WrapMode getWrapMode() const;
+			AlignMode getAlignment() const;
+			float getXAlignment() const;
+			float getYAlignment() const;
 
-            Label& operator=(const Label&);
+			Label& operator=(const Label&);
 
-    		//Signals
+			//Signals
 
-    	private:
-            GtkWidget *_windowParent;
-    		GtkWidget *_label;
-    	};
-    }
+		private:
+			GtkWidget *_windowParent;
+			GtkWidget *_label;
+		};
+	}
 }
 
 #endif // AURORAFW_GUI_LABEL_H

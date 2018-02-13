@@ -20,6 +20,11 @@
 #define AURORAFW_GUI_WINDOW_H
 
 #include <AuroraFW/Global.h>
+#if(AFW_TARGET_PRAGMA_ONCE_SUPPORT)
+	#pragma once
+#endif
+
+#include <AuroraFW/Internal/Config.h>
 
 #include <AuroraFW/STDL/STL/IOStream.h>
 #include <AuroraFW/STDL/STL/String.h>
@@ -31,7 +36,7 @@ typedef struct _GtkWidget GtkWidget;
 
 namespace AuroraFW {
 	namespace GUI {
-		class AFW_EXPORT Window {
+		class AFW_API Window {
 			friend class Label;
 			friend class Button;
 			
