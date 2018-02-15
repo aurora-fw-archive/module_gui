@@ -21,7 +21,7 @@
 #include <gtk/gtk.h>
 #include <AuroraFW/GUI/Application.h>
 #include <AuroraFW/Core/Application.h>
-#include <AuroraFW/Core/Debug.h>
+#include <AuroraFW/Core/DebugManager.h>
 #include <AuroraFW/CLI/Log.h>
 
 namespace AuroraFW {
@@ -29,8 +29,8 @@ namespace AuroraFW {
 		Application::Application(const std::string& pkgname, const ApplicationFlags& flags, void (*mainfunction)(), int argc, char *argv[])
 			: _app(gtk_application_new (pkgname.c_str(), (GApplicationFlags)flags))
 		{
-			Debug::Log("creating a new application...");
-			Debug::Log("application is created.");
+			DebugManager::Log("creating a new application...");
+			DebugManager::Log("application is created.");
 			connect("activate", mainfunction);
 			_appStatus = g_application_run(G_APPLICATION(_app), argc, argv);
 			g_object_unref(_app);
@@ -42,7 +42,7 @@ namespace AuroraFW {
 
 		void Application::connect(const std::string& detailedSignal, void (*signalFunction)(), void *signalData)
 		{
-			Debug::Log("creating new signal on application");
+			DebugManager::Log("creating new signal on application");
 			g_signal_connect (_app, detailedSignal.c_str(), G_CALLBACK(signalFunction), signalData);
 		}
 	}

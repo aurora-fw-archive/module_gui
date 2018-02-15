@@ -19,39 +19,44 @@
 #ifndef AURORAFW_GUI_LAYOUT_H
 #define AURORAFW_GUI_LAYOUT_H
 
+#include <AuroraFW/Global.h>
+#if(AFW_TARGET_PRAGMA_ONCE_SUPPORT)
+	#pragma once
+#endif
+
 namespace AuroraFW {
 	namespace GUI {
-        enum class WrapMode
-    	{
-    		Word,
-    		Char,
-    		WordChar
-    	};
-    	enum class AlignMode
-    	{
-    		/* TL  TC  TR	| \ | /
-    		** L   C   R	| < * >
-    		** BL  BC  BR	| / | \
-    		*/
-    		TopLeft,
-    		TopCenter,
-    		TopRight,
-    		Left,
-    		Center,
-    		Right,
-    		BottomLeft,
-    		BottomCenter,
-    		BottomRight,
-    		Custom
-    	};
-    	enum class JustifyMode
-    	{
-    		Left,
-    		Right,
-    		Center,
-    		Fill
-    	};
-    }
+		enum class WrapMode
+		{
+			Word,
+			Char,
+			WordChar
+		};
+		enum class AlignMode
+		{
+			/* TL  TC  TR	| \ | /
+			** L   C   R	| < * >
+			** BL  BC  BR	| / | \
+			*/
+			TopLeft,
+			TopCenter,
+			TopRight,
+			Left,
+			Center,
+			Right,
+			BottomLeft,
+			BottomCenter,
+			BottomRight,
+			Custom
+		};
+		enum class JustifyMode
+		{
+			Left,
+			Right,
+			Center,
+			Fill
+		};
+	}
 }
 
 #endif // AURORAFW_GUI_LAYOUT_H
