@@ -18,18 +18,18 @@ message(STATUS "Loading gui module...")
 
 find_package(PkgConfig REQUIRED)
 
-if(NOT PKG_CONFIG_FOUND)
-	ExternalProject_Add(googletest
-	GIT_REPOSITORY    https://github.com/aurora-fw/external_pkg-config.git
-	GIT_TAG           pkg-config-0.29
-	SOURCE_DIR        "${CMAKE_BINARY_DIR}/googletest-src"
-	BINARY_DIR        "${CMAKE_BINARY_DIR}/googletest-build"
-	CONFIGURE_COMMAND ""
-	BUILD_COMMAND     ""
-	INSTALL_COMMAND   ""
-	TEST_COMMAND      ""
-	)
-endif()
+#if(NOT PKG_CONFIG_FOUND)
+#	ExternalProject_Add(googletest
+#	GIT_REPOSITORY    https://github.com/aurora-fw/external_pkg-config.git
+#	GIT_TAG           pkg-config-0.29
+#	SOURCE_DIR        "${CMAKE_BINARY_DIR}/googletest-src"
+#	BINARY_DIR        "${CMAKE_BINARY_DIR}/googletest-build"
+#	CONFIGURE_COMMAND ""
+#	BUILD_COMMAND     ""
+#	INSTALL_COMMAND   ""
+#	TEST_COMMAND      ""
+#	)
+#endif()
 
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
@@ -41,7 +41,9 @@ include_directories(${AURORAFW_MODULE_GUI_DIR}/include)
 include_directories(${GTK3_INCLUDE_DIRS})
 
 link_directories(${GTK3_LIBRARY_DIRS})
-add_definitions(${GTK3_CFLAGS_OTHER})
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GTK3_CFLAGS_OTHER}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GTK3_CFLAGS_OTHER}")
 
 add_library (aurorafw-gui SHARED ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Application.cpp
 								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Button.cpp
@@ -49,7 +51,12 @@ add_library (aurorafw-gui SHARED ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Application.c
 								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Style.cpp
 								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Window.cpp)
 
-target_link_libraries(aurorafw-gui aurorafw-core ${GTK3_LIBRARIES})
+foreach(_var_listlib ${GTK3_LIBRARIES})
+	list(APPEND FULL_PATH_GTK3_LIBRARIES "${GTK3_LIBDIR}/lib${_var_listlib}.${AURORA_LIBRARY_EXT}")
+endforeach()
 
-set_target_properties(aurorafw-gui PROPERTIES OUTPUT_NAME aurorafw-gui
-											COMPILE_FLAGS "`pkg-config --cflags --libs gtk+-3.0`")
+
+target_link_libraries(aurorafw-gui aurorafw-core ${FULL_PATH_GTK3_LIBRARIES})
+
+#set_target_properties(aurorafw-gui PROPERTIES OUTPUT_NAME aurorafw-gui
+#											COMPILE_FLAGS "`pkg-config --cflags --libs gtk+-3.0`")
