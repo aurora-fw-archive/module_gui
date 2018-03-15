@@ -52,7 +52,7 @@ add_library (aurorafw-gui SHARED ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Application.c
 								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Window.cpp)
 
 foreach(_var_listlib ${GTK3_LIBRARIES})
-	list(APPEND FULL_PATH_GTK3_LIBRARIES "${GTK3_LIBDIR}/lib${_var_listlib}.${AURORA_LIBRARY_EXT}")
+	list(APPEND FULL_PATH_GTK3_LIBRARIES "${GTK3_LIBDIR}/lib${_var_listlib}.${AURORAFW_LIBRARY_EXT}")
 endforeach()
 
 
