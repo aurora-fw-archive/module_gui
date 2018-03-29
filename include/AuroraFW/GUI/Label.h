@@ -26,6 +26,7 @@
 
 #include <AuroraFW/Internal/Config.h>
 
+#include <AuroraFW/GUI/Widget.h>
 #include <AuroraFW/GUI/Window.h>
 #include <AuroraFW/GUI/Layout.h>
 #include <AuroraFW/CoreLib/Target/Compiler.h>
@@ -61,15 +62,14 @@
 **	onLinkClick(void);
 */
 
-typedef struct _GtkWidget GtkWidget;
-
 namespace AuroraFW {
 	namespace GUI {
-		class AFW_API Label {
+		class AFW_API Label : public Widget {
 		public:
-			Label(Window*& , const std::string& name = "New Label");
-			Label(const Label&);
-			~Label();
+			Label(Widget* = AFW_NULLPTR , const std::string& name = "New Label");
+
+			Label(const Label& ) = delete;
+			Label& operator=(const Label& ) = delete;
 
 			//Setters
 			void setText(std::string);
@@ -85,16 +85,9 @@ namespace AuroraFW {
 			bool isWrap() const;
 			WrapMode getWrapMode() const;
 			AlignMode getAlignment() const;
+			void getAlignment(float& , float& ) const;
 			float getXAlignment() const;
 			float getYAlignment() const;
-
-			Label& operator=(const Label&);
-
-			//Signals
-
-		private:
-			GtkWidget *_windowParent;
-			GtkWidget *_label;
 		};
 	}
 }

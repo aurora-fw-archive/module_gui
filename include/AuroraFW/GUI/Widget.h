@@ -16,8 +16,8 @@
 ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
 ****************************************************************************/
 
-#ifndef AURORAFW_GUI_BUTTON_H
-#define AURORAFW_GUI_BUTTON_H
+#ifndef AURORAFW_GUI_WIDGET_H
+#define AURORAFW_GUI_WIDGET_H
 
 #include <AuroraFW/Global.h>
 #if(AFW_TARGET_PRAGMA_ONCE_SUPPORT)
@@ -26,25 +26,43 @@
 
 #include <AuroraFW/Internal/Config.h>
 
-#include <AuroraFW/GUI/Window.h>
-#include <AuroraFW/GUI/Widget.h>
+#include <AuroraFW/Core/DebugManager.h>
+#include <AuroraFW/STDL/STL/String.h>
+#include <AuroraFW/CoreLib/Callback.h>
+#include <functional>
 
 typedef struct _GtkWidget GtkWidget;
 
 namespace AuroraFW {
 	namespace GUI {
-		class AFW_API Button : Widget {
+		class AFW_API Widget {
 		public:
-			Button(Widget* , const std::string& );
+			//Widget();
 
-			Button (const Button& x) = delete;
-			Button& operator= (const Button& x) = delete;
+			void hide();
+			inline virtual void show() { _show(); }
+			void destroy();
+			void setParent(Widget* );
+			void setName(const std::string& );
 
-			void setFlat(const bool& );
+			std::string name() const;
+			Widget* parent() const;
+			AFW_FORCE_INLINE GtkWidget* getNativeGtkWidget() const { return _widget; }
 
-			bool isFlat() const;
+			template<typename R, typename... Args>
+			void connect(const std::string& , R(*)(Args...), void* = AFW_NULLPTR);
+
+			template<typename R, typename... Args>
+			inline void connect(const std::string& signal_, std::function<R(Args...)> callback, void* data = AFW_NULLPTR)
+			{ connect(signal_, *getCallbackPtr(callback), data); }
+
+		protected:
+			void _show();
+			GtkWidget* _widget;
 		};
 	}
 }
 
-#endif // AURORAFW_GUI_BUTTON_H
+#include "Widget_impl.h"
+
+#endif // AURORAFW_GUI_WIDGET_H

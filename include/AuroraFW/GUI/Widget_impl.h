@@ -16,35 +16,27 @@
 ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
 ****************************************************************************/
 
-#ifndef AURORAFW_GUI_BUTTON_H
-#define AURORAFW_GUI_BUTTON_H
+#ifndef AURORAFW_GUI_WIDGET_IMPL_H
+#define AURORAFW_GUI_WIDGET_IMPL_H
 
 #include <AuroraFW/Global.h>
 #if(AFW_TARGET_PRAGMA_ONCE_SUPPORT)
 	#pragma once
 #endif
 
-#include <AuroraFW/Internal/Config.h>
-
-#include <AuroraFW/GUI/Window.h>
-#include <AuroraFW/GUI/Widget.h>
-
-typedef struct _GtkWidget GtkWidget;
+#include <AuroraFW/Core/DebugManager.h>
+#include <AuroraFW/CoreLib/Callback.h>
+#include <functional>
 
 namespace AuroraFW {
 	namespace GUI {
-		class AFW_API Button : Widget {
-		public:
-			Button(Widget* , const std::string& );
-
-			Button (const Button& x) = delete;
-			Button& operator= (const Button& x) = delete;
-
-			void setFlat(const bool& );
-
-			bool isFlat() const;
-		};
+		template<typename R, typename... Args>
+		void Widget::connect(const std::string& signal_, R(*callback)(Args...), void* data)
+		{
+			DebugManager::Log("creating new signal on widget");
+			g_signal_connect(_widget, signal_.c_str(), G_CALLBACK(callback), data);
+		}
 	}
 }
 
-#endif // AURORAFW_GUI_BUTTON_H
+#endif // AURORAFW_GUI_WIDGET_IMPL_H

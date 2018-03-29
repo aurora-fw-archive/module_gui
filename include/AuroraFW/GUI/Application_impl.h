@@ -16,9 +16,39 @@
 ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
 ****************************************************************************/
 
-#ifndef AURORAFW_GUI__GTKAPPLICATION_H
-#define AURORAFW_GUI__GTKAPPLICATION_H
+#ifndef AURORAFW_GUI_APPLICATION_IMPL_H
+#define AURORAFW_GUI_APPLICATION_IMPL_H
 
-typedef struct _GtkApplication GtkApplication;
+#include <AuroraFW/Global.h>
+#if(AFW_TARGET_PRAGMA_ONCE_SUPPORT)
+	#pragma once
+#endif
 
-#endif // AURORAFW_GUI__GTKAPPLICATION_H
+#include <AuroraFW/GUI/_GTK.h>
+#include <AuroraFW/Core/DebugManager.h>
+#include <AuroraFW/CoreLib/Callback.h>
+#include <functional>
+
+namespace AuroraFW {
+	namespace GUI {
+		template<typename R, typename... Args>
+		Application::Application(const std::string& pkgname, const ApplicationFlags& flags, R(*mainfunction)(Args...), int argc, char **argv)
+			: _app(gtk_application_new (pkgname.c_str(), (GApplicationFlags)flags))
+		{
+			DebugManager::Log("creating a new application...");
+			DebugManager::Log("application is created.");
+			
+			connect("activate", mainfunction);
+			_appStatus = g_application_run(G_APPLICATION(_app), argc, argv);
+		}
+
+		template<typename R, typename... Args>
+		void Application::connect(const std::string& signal_, R(*callback)(Args...), void* data)
+		{
+			DebugManager::Log("creating new signal on widget");
+			g_signal_connect(_app, signal_.c_str(), G_CALLBACK(callback), data);
+		}
+	}
+}
+
+#endif // AURORAFW_GUI_APPLICATION_IMPL_H

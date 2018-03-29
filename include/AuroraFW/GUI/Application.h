@@ -28,7 +28,9 @@
 
 #include <AuroraFW/Core/Application.h>
 
-#include <AuroraFW/GUI/_GtkApplication.h>
+#include <functional>
+
+typedef struct _GtkApplication GtkApplication;
 
 namespace AuroraFW {
 	namespace GUI {
@@ -47,19 +49,29 @@ namespace AuroraFW {
 				OverrideAppIDFlag
 			};
 
-			Application(const std::string &pkgname = "org.aurora.example", const ApplicationFlags &flags = NoneFlag, void (*mainfunction)() = [] {}, int argc = 0, char *argv[] = NULL);
+			template<typename R, typename... Args>
+			Application(const std::string &pkgname = "org.aurora.example", const ApplicationFlags &flags = NoneFlag, R(*)(Args...) = []{}, int argc = 0, char **argv = NULL);
 			~Application();
 
-			Application(const Application &x) = delete;
-			Application &operator=(const Application &x) = delete;
+			Application(const Application &) = delete;
+			Application &operator=(const Application &) = delete;
 			inline int getStatus() const { return _appStatus; }
-			void connect(const std::string &detailedSignal, void (*signalFunction)(), void *signalData = NULL);
+			GtkApplication* getNativeGtkApplication() const { return _app; }
+
+			template<typename R, typename... Args>
+			void connect(const std::string& , R(*)(Args...), void* = AFW_NULLPTR);
+
+			template<typename R, typename... Args>
+			inline void connect(const std::string& signal_, std::function<R(Args...)> callback, void* data = AFW_NULLPTR)
+			{ connect(signal_, *getCallbackPtr(callback), data); }
 
 		private:
-			GtkApplication *_app;
+			GtkApplication* _app;
 			int _appStatus;
 		};
 	}
 }
+
+#include "Application_impl.h"
 
 #endif // AURORAFW_GUI_APPLICATION

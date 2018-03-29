@@ -18,20 +18,14 @@
 
 #include <AuroraFW/GUI/Button.h>
 
-#include <gtk/gtk.h>
+#include <AuroraFW/GUI/_GTK.h>
 
 namespace AuroraFW {
 	namespace GUI {
-		Button::Button(Window* &parent, const std::string& name)
-			:	_windowParent(parent->_window),
-				_button(gtk_button_new_with_label(name.c_str()))
+		Button::Button(Widget* parent, const std::string& name)
 		{
-			gtk_container_add(GTK_CONTAINER(_windowParent), _button);
-		}
-
-		Button::~Button()
-		{
-			delete _button;
+			_widget = gtk_button_new_with_label(name.c_str());
+			setParent(parent);
 		}
 	}
 }

@@ -16,8 +16,8 @@
 ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
 ****************************************************************************/
 
-#ifndef AURORAFW_GUI_BUTTON_H
-#define AURORAFW_GUI_BUTTON_H
+#ifndef AURORAFW_GUI_CUSTOMLAYOUT_H
+#define AURORAFW_GUI_CUSTOMLAYOUT_H
 
 #include <AuroraFW/Global.h>
 #if(AFW_TARGET_PRAGMA_ONCE_SUPPORT)
@@ -25,26 +25,22 @@
 #endif
 
 #include <AuroraFW/Internal/Config.h>
-
-#include <AuroraFW/GUI/Window.h>
-#include <AuroraFW/GUI/Widget.h>
-
-typedef struct _GtkWidget GtkWidget;
+#include <AuroraFW/Math/Vector2D.h>
 
 namespace AuroraFW {
 	namespace GUI {
-		class AFW_API Button : Widget {
+		class AFW_API CustomLayout {
 		public:
-			Button(Widget* , const std::string& );
+			CustomLayout(Widget* );
+			void addChild(Widget* , int , int );
+			void addChild(Widget* , const Math::Vector2D& );
+			void moveChild(Widget* , int , int );
+			void moveChild(Widget*, const Math::Vector2D& );
 
-			Button (const Button& x) = delete;
-			Button& operator= (const Button& x) = delete;
-
-			void setFlat(const bool& );
-
-			bool isFlat() const;
+			void setSize(uint , uint);
+			void getSize(uint& , uint& );
 		};
 	}
 }
 
-#endif // AURORAFW_GUI_BUTTON_H
+#endif // AURORAFW_GUI_CUSTOMLAYOUT_H

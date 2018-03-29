@@ -45,18 +45,16 @@ link_directories(${GTK3_LIBRARY_DIRS})
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GTK3_CFLAGS_OTHER}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GTK3_CFLAGS_OTHER}")
 
-add_library (aurorafw-gui SHARED ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Application.cpp
-								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Button.cpp
-								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Label.cpp
-								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Style.cpp
-								 ${AURORAFW_MODULE_GUI_SOURCE_DIR}/Window.cpp)
+file(GLOB_RECURSE AURORAFW_MODULE_GUI_SOURCE ${AURORAFW_MODULE_GUI_SOURCE_DIR}/*.cpp)
+
+add_library (aurorafw-gui SHARED ${AURORAFW_MODULE_GUI_SOURCE})
 
 foreach(_var_listlib ${GTK3_LIBRARIES})
 	list(APPEND FULL_PATH_GTK3_LIBRARIES "${GTK3_LIBDIR}/lib${_var_listlib}.${AURORAFW_LIBRARY_EXT}")
 endforeach()
 
 
-target_link_libraries(aurorafw-gui aurorafw-core ${FULL_PATH_GTK3_LIBRARIES})
+target_link_libraries(aurorafw-gui aurorafw-corelib ${FULL_PATH_GTK3_LIBRARIES})
 
 #set_target_properties(aurorafw-gui PROPERTIES OUTPUT_NAME aurorafw-gui
 #											COMPILE_FLAGS "`pkg-config --cflags --libs gtk+-3.0`")

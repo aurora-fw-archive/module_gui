@@ -26,17 +26,17 @@
 
 #include <AuroraFW/Internal/Config.h>
 
+#include <AuroraFW/GUI/Widget.h>
+#include <AuroraFW/GUI/Application.h>
 #include <AuroraFW/STDL/STL/IOStream.h>
 #include <AuroraFW/STDL/STL/String.h>
-
 #include <AuroraFW/Math/Vector2D.h>
 #include <AuroraFW/Image/Image.h>
-
-typedef struct _GtkWidget GtkWidget;
+#include <functional>
 
 namespace AuroraFW {
 	namespace GUI {
-		class AFW_API Window {
+		class AFW_API Window : public Widget {
 			friend class Label;
 			friend class Button;
 			
@@ -59,20 +59,27 @@ namespace AuroraFW {
 				CenterParentPosition
 			};
 
-			Window(const std::string& = "Aurora Window", const int& = 200, const int& = 200, const WindowPosition& = NonePosition, const WindowType& = ToplevelWindow);
-			
+			Window(const std::string& = "Aurora Window", const int& = 800, const int& = 600, const WindowPosition& = NonePosition, const WindowType& = ToplevelWindow);
+			~Window();
+
+			Window(const Window &) = delete;
+			Window &operator=(const Window &) = delete;
+
+			void show() override;
+			void addWidget(Widget* );
+
 			void setTitle(const std::string& );
 			void setPos(const WindowPosition& );
 			void resize(int , int );
-			inline void resize(Math::Vector2D& );
+			inline void resize(Math::Vector2D& vec) { resize(vec.x, vec.y); }
 			void move(int , int );
-			inline void move(Math::Vector2D& );
+			inline void move(Math::Vector2D& vec) { move(vec.x, vec.y); }
 			void setOpacity(double );
 			void setResizable(bool );
 			void setIcon(const unsigned char* , int , int , int , bool );
 			void setIcon(ImageManager::Image& );
 			void setIcon(const char* );
-			inline void setIcon(const std::string& );
+			inline void setIcon(const std::string& str) { setIcon(str.c_str()); }
 			void maximize();
 			void unmaximize();
 			void iconify();
@@ -90,29 +97,9 @@ namespace AuroraFW {
 			bool isResizable() const;
 			bool isMaximized() const;
 			bool isFocused() const;
-			inline GtkWidget* getNativeGtkWidget() const { return _window; }
 
-			void connect(const std::string& , void (*)(), void* = NULL);
-			void start(void (*)() = []{});
-
-		private:
-			GtkWidget* _window;
+			void start(std::function<void()> = []{});
 		};
-
-		inline void Window::resize(Math::Vector2D& vec)
-		{
-			resize(vec.x, vec.y);
-		}
-
-		inline void Window::move(Math::Vector2D& vec)
-		{
-			move(vec.x, vec.y);
-		}
-
-		inline void setIcon(const std::string& str)
-		{
-			setIcon(str.c_str());
-		}
 	}
 }
 

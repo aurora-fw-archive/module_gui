@@ -16,35 +16,39 @@
 ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
 ****************************************************************************/
 
-#ifndef AURORAFW_GUI_BUTTON_H
-#define AURORAFW_GUI_BUTTON_H
-
-#include <AuroraFW/Global.h>
-#if(AFW_TARGET_PRAGMA_ONCE_SUPPORT)
-	#pragma once
-#endif
-
-#include <AuroraFW/Internal/Config.h>
-
-#include <AuroraFW/GUI/Window.h>
 #include <AuroraFW/GUI/Widget.h>
-
-typedef struct _GtkWidget GtkWidget;
+#include <AuroraFW/GUI/_GTK.h>
 
 namespace AuroraFW {
 	namespace GUI {
-		class AFW_API Button : Widget {
-		public:
-			Button(Widget* , const std::string& );
+		void Widget::setParent(Widget* parent)
+		{
+			gtk_widget_set_parent(_widget, parent->_widget);
+		}
 
-			Button (const Button& x) = delete;
-			Button& operator= (const Button& x) = delete;
+		Widget* Widget::parent() const
+		{
+			return reinterpret_cast<Widget*>(gtk_widget_get_parent(_widget));
+		}
 
-			void setFlat(const bool& );
+		void Widget::_show()
+		{
+			gtk_widget_show_all(_widget);
+		}
 
-			bool isFlat() const;
-		};
+		void Widget::hide()
+		{
+			gtk_widget_hide(_widget);
+		}
+
+		void Widget::setName(const std::string& str)
+		{
+			gtk_widget_set_name(_widget, str.c_str());
+		}
+
+		void Widget::destroy()
+		{
+			gtk_widget_destroy(_widget);
+		}
 	}
 }
-
-#endif // AURORAFW_GUI_BUTTON_H
