@@ -50,5 +50,15 @@ namespace AuroraFW {
 		{
 			gtk_widget_destroy(_widget);
 		}
+
+		void Widget::setHAlign(Align align)
+		{
+			gtk_widget_set_halign(_widget, static_cast<GtkAlign>(align));
+		}
+
+		void Widget::setVAlign(Align align)
+		{
+			gtk_widget_set_valign(_widget, static_cast<GtkAlign>(align));
+		}
 	}
 }

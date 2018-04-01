@@ -26,6 +26,7 @@
 
 #include <AuroraFW/Core/DebugManager.h>
 #include <AuroraFW/CoreLib/Callback.h>
+#include <AuroraFW/GUI/Enums.h>
 #include <functional>
 
 namespace AuroraFW {
@@ -35,6 +36,19 @@ namespace AuroraFW {
 		{
 			DebugManager::Log("creating new signal on widget");
 			g_signal_connect(_widget, signal_.c_str(), G_CALLBACK(callback), data);
+		}
+
+		constexpr void Widget::setAlign(Orientation orientation, Align align)
+		{
+			switch(orientation)
+			{
+				case Orientation::Horizontal:
+					this->setHAlign(align);
+					break;
+				case Orientation::Vertical:
+					this->setVAlign(align);
+					break;
+			};
 		}
 	}
 }
