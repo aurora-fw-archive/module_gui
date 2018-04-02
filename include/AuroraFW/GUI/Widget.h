@@ -29,6 +29,7 @@
 #include <AuroraFW/Core/DebugManager.h>
 #include <AuroraFW/STDL/STL/String.h>
 #include <AuroraFW/CoreLib/Callback.h>
+#include <AuroraFW/GUI/Enums.h>
 #include <functional>
 
 typedef struct _GtkWidget GtkWidget;
@@ -47,7 +48,16 @@ namespace AuroraFW {
 
 			std::string name() const;
 			Widget* parent() const;
-			AFW_FORCE_INLINE GtkWidget* getNativeGtkWidget() const { return _widget; }
+
+			constexpr void setAlign(Orientation , Align );
+			void setHAlign(Align );
+			void setVAlign(Align );
+			void setState(StateType );
+
+			StateType state() const;
+			Align halign() const;
+			Align valign() const;
+			AFW_FORCE_INLINE GtkWidget *getNativeGtkWidget() const { return _widget; }
 
 			template<typename R, typename... Args>
 			void connect(const std::string& , R(*)(Args...), void* = AFW_NULLPTR);

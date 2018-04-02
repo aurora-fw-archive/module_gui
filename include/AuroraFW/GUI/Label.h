@@ -28,7 +28,7 @@
 
 #include <AuroraFW/GUI/Widget.h>
 #include <AuroraFW/GUI/Window.h>
-#include <AuroraFW/GUI/Layout.h>
+#include <AuroraFW/GUI/Enums.h>
 #include <AuroraFW/CoreLib/Target/Compiler.h>
 
 #ifdef AFW_TARGET_CXX
