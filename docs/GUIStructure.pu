@@ -20,134 +20,217 @@ class name <<(E,firebrick) exception>> #FCC {
 
 title Graphical User Interface Structure (GTK Wrapper)
 
+class Application
+class Widget
+class Container
+Widget --|> Container
+class Bin
+Container --|> Bin
+class Window
+Bin --|> Window
+class Dialog
+Window --|> Dialog
+class AboutDialog
+Dialog --|> AboutDialog
+class AppChooserDialog
+Dialog --|> AppChooserDialog
+class ColorChooserDialog
+Dialog --|> ColorChooserDialog
+class FileChooserDialog
+Dialog --|> FileChooserDialog
+class FontChooserDialog
+Dialog --|> FontChooserDialog
+class FontSelectionDialog
+Dialog --|> FontSelectionDialog
+class MessageDialog
+Dialog --|> MessageDialog
 
-enum ApplicationFlags {
-	NoneFlag
-	ServiceFlag
-	LauncherFlag
-	HandlesOpenFlag
-	HandlesCommandLineFlag
-	SendEnvironmentFlag
-	NonUniqueFlag
-	OverrideAppIDFlag
-}
+class PageSetupUnixDialog
+note left: UNIX!!!
+Dialog --|> PageSetupUnixDialog
 
-enum WrapMode {
-	Word
-	Char
-	WordChar
-}
+class PrintUnixDialog
+note left: UNIX!!!
+Dialog --|> PrintUnixDialog
 
-enum AlignMode {
-	TopLeft
-	TopCenter
-	TopRight
-	Left
-	Center
-	Right
-	BottomLeft
-	BottomCenter
-	BottomRight
-	Custom
-}
+class RecentChooserDialog
+Dialog --|> RecentChooserDialog
+class ApplicationWindow
+Window --|> ApplicationWindow
+class Assistant
+Window --|> Assistant
+class OffscreenWindow
+Window --|> OffscreenWindow
+class Plug
+Window --|> Plug
+class ShortcutsWindow
+Window --|> ShortcutsWindow
+class ActionBar
+Bin --|> ActionBar
+class Alignment
+Bin --|> Alignment
+class ComboBox
+Bin --|> ComboBox
+class AppChooserButton
+ComboBox --|> AppChooserButton
+class ComboBoxText
+ComboBox --|> ComboBoxText
+class Frame
+Bin --|> Frame
+class AspectFrame
+Frame --|> AspectFrame
+class Button
+Bin --|> Button
+class ToggleButton
+Button --|> ToggleButton
+class CheckButton
+ToggleButton --|> CheckButton
+class RadioButton
+CheckButton --|> RadioButton
+class MenuButton
+ToggleButton --|> MenuButton
+class ColorButton
+Button --|> ColorButton
+class FrontButton
+Button --|> FontButton
+class LinkButton
+Button --|> LinkButton
+class LockButton
+Button --|> LockButton
+class ModelButton
+Button --|> ModelButton
+class ScaleButton
+Button --|> ScaleButton
+class ScaleButton
+Button --|> ScaleButton
+class VolumeButton
+ScaleButton --|> VolumeButton
+class MenuItem
+Bin --|> MenuItem
+class CheckMenuItem
+MenuItem --|> CheckMenuItem
+class RadioMenuItem
+CheckMenuItem --|> RadioMenuItem
+class ImageMenuItem
+MenuItem --|> ImageMenuItem
+class SeparatorMenuItem
+MenuItem --|> SeparatorMenuItem
+class TearoffMenuItem
+MenuItem --|> TearoffMenuItem
+class EventBox
+Bin --|> EventBox
+class Expander
+Bin --|> Expander
 
-enum JustifyMode {
-	Left
-	Right
-	Center
-	Fill
-}
+class FlowBox
+note left: FlowBoxChild
+Bin --|> FlowBox
 
-class Application {
-	+ Application()
-	+ ~Application()
-	.. Public ..
-	+ connect()
-	+ AppStatus : Integer
-	-- Protected --
-	# App* : Application
-	# ID : uLong
-}
-note left: GTKApplication
+class HandleBox
+Bin --|> HandleBox
+class ListBox
+note left: ListBoxRow
+Bin --|> ListBox
 
-class Label {
-	+ Label()
-	.. Public ..
-	+ Some Setters
-	+ Some Getters
-	-- Protected --
-	# Label* : Label
-	# ID :uLong
-	__ Private __
-	- WindowParent* : Window
-}
-note left: GTKLabel
+class ToolItem
+Bin --|> ToolItem
+class ToolButton
+ToolItem --|> ToolButton
+class MenuToolButton
+ToolButton --|> MenuToolButton
+class ToggleToolButton
+ToolButton --|> ToggleToolButton
+class RadioToolButton
+ToggleToolButton --|> RadioToolButton
+class SeparatorToolItem
+ToolItem --|> SeparatorToolItem
+class Overlay
+Bin --|> Overlay
+class ScrolledWindow
+Bin --|> ScrolledWindow
+class PlacesSidebar
+ScrolledWindow --|> PlacesSidebar
+class Popover
+Bin --|> Popover
+class PopoverMenu
+Popover --|> PopoverMenu
+class Revealer
+Bin --|> Revealer
+class SearchBar
+Bin --|> SearchBar
+class StackSidebar
+Bin --|> StackSidebar
+class Viewport
+Bin --|> Viewport
+class Box
+Container --|> Box
+class AppChooserWidget
+class ButtonBox
+class HButtonBox
+class VButtonBox
+class ColorChooserWidget
+class ColorSelection
+class FileChooserButton
+class FileChooserWidget
+class FontChooserWidget
+class FontSelection
+class HBox
+class InfoBar
+class RecentChooserWidget
+class ShortcutsSection
+class ShortcutsGroup
+class ShortcutsShortcut
+class StackSwitcher
+class Statusbar
+class VBox
+class Fixed
+class Grid
+class HeaderBar
+class Paned
+class HPaned
+class VPaned
+class IconView
+class Layout
+class MenuShell
+class MenuBar
+class Menu
+class Notebook
+class Socket
+class Table
+class TextView
+class ToolBar
+class ToolItemGroup
+class ToolPalette
+class TreeView
+class Misc
+class Label
+class AccelLabel
+class Arrow
+class Image
+class Calendar
+class CellView
+class DrawingArea
+class Entry
+class SearchEntry
+class SpinButton
+class GLArea
+class Range
+class Scale
+class HScale
+class VScale
+class Scrollbar
+class HScrollbar
+class VScrollbar
+class Separator
+class HSeparator
+class VSeparator
+class HSV
+class Invisible
+class ProgressBar
+class Spinner
+class Switch
+class LevelBar
 
-class Button {
-	+ Button()
-}
-note left: GTKButton
 
-class ListView {
-
-}
-note left: GTKListBox
-
-class TabControl {
-
-}
-note left: GTKNotebook
-
-class ProgressBar {
-
-}
-note left: GTKProgressBar
-
-class PaneControl {
-
-}
-note left: GTKPaned
-
-class ActionBar {
-
-}
-note left: GTKActionBar
-
-class TreeView {
-
-}
-note left: GTKTreeView
-
-enum WindowType {
-	ToplevelWindow
-	PopupWindow
-}
-enum WindowPosition {
-	NonePosition
-	CenterPosition
-	MousePosition
-	AlwaysCenterPosition
-	CenterParentPosition
-}
-
-class Window {
-	+ Window()
-	.. Public ..
-	+ setTitle(string)
-	+ setPos(WindowPosition)
-	+ connect(string, function, data)
-	+ start()
-	-- Protected --
-	# Window : Window
-}
-note left: GTKWindow
-
-WrapMode <|.. Label
-AlignMode <|.. Label
-JustifyMode <|.. Label
-ApplicationFlags o-- Application
-WindowType o-- Window
-WindowPosition o-- Window
-Label *-- Window
 
 @enduml
