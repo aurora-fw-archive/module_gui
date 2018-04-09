@@ -22,214 +22,308 @@ title Graphical User Interface Structure (GTK Wrapper)
 
 class Application
 class Widget
-class Container
-Widget --|> Container
-class Bin
-Container --|> Bin
-class Window
-Bin --|> Window
-class Dialog
-Window --|> Dialog
-class AboutDialog
-Dialog --|> AboutDialog
-class AppChooserDialog
-Dialog --|> AppChooserDialog
-class ColorChooserDialog
-Dialog --|> ColorChooserDialog
-class FileChooserDialog
-Dialog --|> FileChooserDialog
-class FontChooserDialog
-Dialog --|> FontChooserDialog
-class FontSelectionDialog
-Dialog --|> FontSelectionDialog
-class MessageDialog
-Dialog --|> MessageDialog
+	class Container <? extends Widget>
+	Widget --|> Container
+		class Bin <? extends Container>
+		Container --|> Bin
+			class Window <? extends Bin>
+			Bin --|> Window
+				class Dialog <? extends Window>
+				Window --|> Dialog
+					class AboutDialog
+					Dialog --|> AboutDialog
+					class AppChooserDialog
+					Dialog --|> AppChooserDialog
+					class ColorChooserDialog
+					Dialog --|> ColorChooserDialog
+					class FileChooserDialog
+					Dialog --|> FileChooserDialog
+					class FontChooserDialog
+					Dialog --|> FontChooserDialog
+					class FontSelectionDialog
+					Dialog --|> FontSelectionDialog
+					class MessageDialog
+					Dialog --|> MessageDialog
 
-class PageSetupUnixDialog
-note left: UNIX!!!
-Dialog --|> PageSetupUnixDialog
+					class PageSetupDialog
+					Dialog --|> PageSetupDialog
 
-class PrintUnixDialog
-note left: UNIX!!!
-Dialog --|> PrintUnixDialog
+					class PrintDialog
+					Dialog --|> PrintDialog
 
-class RecentChooserDialog
-Dialog --|> RecentChooserDialog
-class ApplicationWindow
-Window --|> ApplicationWindow
-class Assistant
-Window --|> Assistant
-class OffscreenWindow
-Window --|> OffscreenWindow
-class Plug
-Window --|> Plug
-class ShortcutsWindow
-Window --|> ShortcutsWindow
-class ActionBar
-Bin --|> ActionBar
-class Alignment
-Bin --|> Alignment
-class ComboBox
-Bin --|> ComboBox
-class AppChooserButton
-ComboBox --|> AppChooserButton
-class ComboBoxText
-ComboBox --|> ComboBoxText
-class Frame
-Bin --|> Frame
-class AspectFrame
-Frame --|> AspectFrame
-class Button
-Bin --|> Button
-class ToggleButton
-Button --|> ToggleButton
-class CheckButton
-ToggleButton --|> CheckButton
-class RadioButton
-CheckButton --|> RadioButton
-class MenuButton
-ToggleButton --|> MenuButton
-class ColorButton
-Button --|> ColorButton
-class FrontButton
-Button --|> FontButton
-class LinkButton
-Button --|> LinkButton
-class LockButton
-Button --|> LockButton
-class ModelButton
-Button --|> ModelButton
-class ScaleButton
-Button --|> ScaleButton
-class ScaleButton
-Button --|> ScaleButton
-class VolumeButton
-ScaleButton --|> VolumeButton
-class MenuItem
-Bin --|> MenuItem
-class CheckMenuItem
-MenuItem --|> CheckMenuItem
-class RadioMenuItem
-CheckMenuItem --|> RadioMenuItem
-class ImageMenuItem
-MenuItem --|> ImageMenuItem
-class SeparatorMenuItem
-MenuItem --|> SeparatorMenuItem
-class TearoffMenuItem
-MenuItem --|> TearoffMenuItem
-class EventBox
-Bin --|> EventBox
-class Expander
-Bin --|> Expander
+					class RecentChooserDialog
+					Dialog --|> RecentChooserDialog
+				class ApplicationWindow
+				Window --|> ApplicationWindow
+				class Assistant
+				Window --|> Assistant
+				class OffscreenWindow
+				Window --|> OffscreenWindow
+				class Plug
+				Window --|> Plug
+				class ShortcutsWindow
+				Window --|> ShortcutsWindow
+			class ActionBar
+			Bin --|> ActionBar
+			class Alignment
+			Bin --|> Alignment
+			class ComboBox
+			Bin --|> ComboBox
+				class AppChooserButton
+				ComboBox --|> AppChooserButton
+				class ComboBoxText
+				ComboBox --|> ComboBoxText
+			class Frame
+			Bin --|> Frame
+				class AspectFrame
+				Frame --|> AspectFrame
+			class Button
+			Bin --|> Button
+				class ToggleButton
+				Button --|> ToggleButton
+					class CheckButton
+					ToggleButton --|> CheckButton
+						class RadioButton
+						CheckButton --|> RadioButton
+					class MenuButton
+					ToggleButton --|> MenuButton
+				class ColorButton
+				Button --|> ColorButton
+				class FrontButton
+				Button --|> FontButton
+				class LinkButton
+				Button --|> LinkButton
+				class LockButton
+				Button --|> LockButton
+				class ModelButton
+				Button --|> ModelButton
+				class ScaleButton
+				Button --|> ScaleButton
+				class ScaleButton
+				Button --|> ScaleButton
+					class VolumeButton
+					ScaleButton --|> VolumeButton
+			class MenuItem
+			Bin --|> MenuItem
+				class CheckMenuItem
+				MenuItem --|> CheckMenuItem
+					class RadioMenuItem
+					CheckMenuItem --|> RadioMenuItem
+				class ImageMenuItem
+				MenuItem --|> ImageMenuItem
+				class SeparatorMenuItem
+				MenuItem --|> SeparatorMenuItem
+				class TearoffMenuItem
+				MenuItem --|> TearoffMenuItem
+			class EventBox
+			Bin --|> EventBox
+			class Expander
+			Bin --|> Expander
+			class FlowBoxChild << (S,#FF7700) >>
+			hide FlowBoxChild members
+			Bin --|> FlowBoxChild
+			class HandleBox
+			Bin --|> HandleBox
+			class ListBoxRow << (S,#FF7700) >>
+			hide ListBoxRow members
+			Bin --|> ListBoxRow
+			class ToolItem
+			Bin --|> ToolItem
+				class ToolButton
+				ToolItem --|> ToolButton
+					class MenuToolButton
+					ToolButton --|> MenuToolButton
+					class ToggleToolButton
+					ToolButton --|> ToggleToolButton
+						class RadioToolButton
+						ToggleToolButton --|> RadioToolButton
+					class SeparatorToolItem
+					ToolItem --|> SeparatorToolItem
+			class Overlay
+			Bin --|> Overlay
+			class ScrolledWindow
+			Bin --|> ScrolledWindow
+				class PlacesSidebar
+				ScrolledWindow --|> PlacesSidebar
+			class Popover
+			Bin --|> Popover
+				class PopoverMenu
+				Popover --|> PopoverMenu
+			class Revealer
+			Bin --|> Revealer
+			class SearchBar
+			Bin --|> SearchBar
+			class StackSidebar
+			Bin --|> StackSidebar
+			class Viewport
+			Bin --|> Viewport
+		class Box
+		Container --|> Box
+			class HBox
+			Box --|> HBox
+			class VBox
+			Box --|> VBox
+			class AppChooserWidget
+			Box --|> AppChooserWidget
+			class ButtonBox
+			Box --|> ButtonBox
+				class HButtonBox
+				ButtonBox --|> HButtonBox
+				class VButtonBox
+				ButtonBox --|> VButtonBox
+			class ColorChooserWidget
+			Box --|> ColorChooserWidget
+			class ColorSelection
+			Box --|> ColorSelection
+			class FileChooserButton
+			Box --|> FileChooserButton
+			class FileChooserWidget
+			Box --|> FileChooserWidget
+			class FontChooserWidget
+			Box --|> FontChooserWidget
+			class FontSelection
+			Box --|> FontSelection
+			class InfoBar
+			Box --|> InfoBar
+			class RecentChooserWidget
+			Box --|> RecentChooserWidget
+			class ShortcutsSection
+			Box --|> ShortcutsSection
+			class ShortcutsGroup
+			Box --|> ShortcutsGroup
+			class ShortcutsShortcut
+			Box --|> ShortcutsShortcut
+			class StackSwitcher
+			Box --|> StackSwitcher
+			class Statusbar
+			Box --|> Statusbar
+		class Fixed
+		Container --|> Fixed
+		class FlowBox
+		Container --|> FlowBox
+		FlowBox .. FlowBoxChild
+		class Grid
+		Container --|> Grid
+		class HeaderBar
+		Container --|> HeaderBar
+		class Paned
+		Container --|> Paned
+			class HPaned
+			Paned --|> HPaned
+			class VPaned
+			Paned --|> VPaned
+		class IconView
+		Container --|> IconView
+		class Layout
+		Container --|> Layout
+		class ListBox
+		Container --|> ListBox
+		ListBox .. ListBoxRow
+		class MenuShell
+		Container --|> MenuShell
+			class MenuBar
+			MenuShell --|> MenuBar
+			class Menu
+			MenuShell --|> Menu
+				class RecentChooserMenu
+				Menu --|> RecentChooserMenu
+		class Notebook
+		Container --|> Notebook
+		class Socket
+		Container --|> Socket
+		class Table
+		Container --|> Table
+		class TextView
+		Container --|> TextView
+		class ToolBar
+		Container --|> ToolBar
+		class ToolItemGroup
+		Container --|> ToolItemGroup
+		class ToolPalette
+		Container --|> ToolPalette
+		class TreeView
+		Container --|> TreeView
+	class Misc
+	Widget --|> Misc
+		class Label
+		Misc --|> Label
+			class AccelLabel
+			Label --|> AccelLabel
+		class Arrow
+		Misc --|> Arrow
+		class Image
+		Misc --|> Image
+	class Calendar
+	Widget --|> Calendar
+	class CellView
+	Widget --|> CellView
+	class DrawingArea
+	Widget --|> DrawingArea
+	class Entry
+	Widget --|> Entry
+		class SearchEntry
+		Entry --|> SearchEntry
+		class SpinButton
+		Entry --|> SpinButton
+	class GLArea
+	Widget --|> GLArea
+	class Range
+	Widget --|> Range
+		class Scale
+		Range --|> Scale
+			class HScale
+			Scale --|> HScale
+			class VScale
+			Scale --|> VScale
+		class Scrollbar
+		Range --|> Scrollbar
+			class HScrollbar
+			Scrollbar --|> HScrollbar
+			class VScrollbar
+			Scrollbar --|> VScrollbar
+	class Separator
+	Widget --|> Separator
+		class HSeparator
+		Separator --|> HSeparator
+		class VSeparator
+		Separator --|> VSeparator
+	class HSV
+	Widget --|> HSV
+	class Invisible
+	Widget --|> Invisible
+	class ProgressBar
+	Widget --|> ProgressBar
+	class Spinner
+	Widget --|> Spinner
+	class Switch
+	Widget --|> Switch
+	class LevelBar
+	Widget --|> LevelBar
 
-class FlowBox
-note left: FlowBoxChild
-Bin --|> FlowBox
-
-class HandleBox
-Bin --|> HandleBox
-class ListBox
-note left: ListBoxRow
-Bin --|> ListBox
-
-class ToolItem
-Bin --|> ToolItem
-class ToolButton
-ToolItem --|> ToolButton
-class MenuToolButton
-ToolButton --|> MenuToolButton
-class ToggleToolButton
-ToolButton --|> ToggleToolButton
-class RadioToolButton
-ToggleToolButton --|> RadioToolButton
-class SeparatorToolItem
-ToolItem --|> SeparatorToolItem
-class Overlay
-Bin --|> Overlay
-class ScrolledWindow
-Bin --|> ScrolledWindow
-class PlacesSidebar
-ScrolledWindow --|> PlacesSidebar
-class Popover
-Bin --|> Popover
-class PopoverMenu
-Popover --|> PopoverMenu
-class Revealer
-Bin --|> Revealer
-class SearchBar
-Bin --|> SearchBar
-class StackSidebar
-Bin --|> StackSidebar
-class Viewport
-Bin --|> Viewport
-class Box
-Container --|> Box
-class AppChooserWidget
-class ButtonBox
-class HButtonBox
-class VButtonBox
-class ColorChooserWidget
-class ColorSelection
-class FileChooserButton
-class FileChooserWidget
-class FontChooserWidget
-class FontSelection
-class HBox
-class InfoBar
-class RecentChooserWidget
-class ShortcutsSection
-class ShortcutsGroup
-class ShortcutsShortcut
-class StackSwitcher
-class Statusbar
-class VBox
-class Fixed
-class Grid
-class HeaderBar
-class Paned
-class HPaned
-class VPaned
-class IconView
-class Layout
-class MenuShell
-class MenuBar
-class Menu
-class Notebook
-class Socket
-class Table
-class TextView
-class ToolBar
-class ToolItemGroup
-class ToolPalette
-class TreeView
-class Misc
-class Label
-class AccelLabel
-class Arrow
-class Image
-class Calendar
-class CellView
-class DrawingArea
-class Entry
-class SearchEntry
-class SpinButton
-class GLArea
-class Range
-class Scale
-class HScale
-class VScale
-class Scrollbar
-class HScrollbar
-class VScrollbar
-class Separator
-class HSeparator
-class VSeparator
-class HSV
-class Invisible
-class ProgressBar
-class Spinner
-class Switch
-class LevelBar
+class Adjustment
+class CellArea
+	class CellAreaBox
+	CellArea --|> CellAreaBox
+class CellRenderer
+	class CellRendererText
+	CellRenderer --|> CellRendererText
+		class CellRendererAccel
+		CellRendererText --|> CellRendererAccel
+		class CellRendererCombo
+		CellRendererText --|> CellRendererCombo
+		class CellRendererSpin
+		CellRendererText --|> CellRendererSpin
+	class CellRendererPixbuf
+	CellRenderer --|> CellRendererPixbuf
+	class CellRendererProgress
+	CellRenderer --|> CellRendererProgress
+	class CellRendererSpinner
+	CellRenderer --|> CellRendererSpinner
+	class CellRendererToggle
+	CellRenderer --|> CellRendererToggle
+class FileFilter
+class TreeViewColumn
+class RecentFilter
 
 
 
